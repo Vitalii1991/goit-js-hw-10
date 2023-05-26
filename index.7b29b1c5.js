@@ -1,0 +1,2 @@
+fetch("https://api.thecatapi.com/v1/images/search?limit=10&breed_ids=beng&api_key=live_h4rXP6k712FItPzlv4CzVENgeHJjXm6PhC2qqHs9ALeUyqOD7G0DJszHUDH4miQN").then((function(e){return e.json()})).then((function(e){console.log(e);var t=!0,n=!1,o=void 0;try{for(var r,i=e[Symbol.iterator]();!(t=(r=i.next()).done);t=!0){var l=r.value;console.log(l.id)}}catch(e){n=!0,o=e}finally{try{t||null==i.return||i.return()}finally{if(n)throw o}}})).catch((function(e){return[console.log(e)]}));
+//# sourceMappingURL=index.7b29b1c5.js.map
