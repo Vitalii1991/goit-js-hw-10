@@ -1,24 +1,17 @@
-const userId =
+const BASE_URL = 'https://api.thecatapi.com/v1';
+const END_POINT_IMAGE = '/images/search';
+const BREEDS = '?has_breeds=1';
+const api_key =
   'live_h4rXP6k712FItPzlv4CzVENgeHJjXm6PhC2qqHs9ALeUyqOD7G0DJszHUDH4miQN';
 
-const getUser = userId => {
-  const url = `https://api.thecatapi.com/v1/images/search?limit=10&breed_ids=beng&api_key=${userId}`;
-  return fetch(url).then(res => res.json());
-};
+function getCatsCollection() {
+  const URL = `${BASE_URL}${END_POINT_IMAGE}${BREEDS}`;
 
-getUser(userId).then(user => console.log(user));
+  return fetch(URL, {
+    headers: {
+      'x-api-key': api_key,
+    },
+  }).then(res => res.json());
+}
 
-// fetch(
-//   'https://api.thecatapi.com/v1/images/search?limit=10&breed_ids=beng&api_key=live_h4rXP6k712FItPzlv4CzVENgeHJjXm6PhC2qqHs9ALeUyqOD7G0DJszHUDH4miQN'
-// )
-//   .then(responce => {
-//     return responce.json();
-//   })
-//   .then(cats => {
-//     console.log(cats);
-
-//     for (const cat of cats) {
-//       console.log(cat.id);
-//     }
-//   })
-//   .catch(error => [console.log(error)]);
+getCatsCollection().then(data => console.log(data));
