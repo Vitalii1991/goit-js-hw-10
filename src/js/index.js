@@ -1,6 +1,10 @@
 import { fetchBreeds } from './cat-api';
+import { fetchCatByBreed } from './cat-api';
 
-const selectBreed = document.querySelector('.breed-select');
+const refs = {
+  breedSelect: document.querySelector('.breed-select'),
+  catInfo: document.querySelector('.cat-info'),
+};
 
 fetchBreeds()
   .then(data => {
@@ -14,6 +18,8 @@ fetchBreeds()
         .join('');
     }
 
-    selectBreed.insertAdjacentHTML('beforeend', createMarkup(data));
+    refs.breedSelect.insertAdjacentHTML('beforeend', createMarkup(data));
   })
   .catch(err => console.log(err));
+
+fetchCatByBreed().then(data => console.log(data));
