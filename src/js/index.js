@@ -1,5 +1,10 @@
 import { fetchBreeds } from './cat-api';
 import { fetchCatByBreed } from './cat-api';
+import SlimSelect from 'slim-select';
+
+new SlimSelect({
+  select: '#single',
+});
 
 const refs = {
   breedSelect: document.querySelector('.breed-select'),
