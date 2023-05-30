@@ -1,11 +1,12 @@
 import { fetchBreeds } from './cat-api';
 import { fetchCatByBreed } from './cat-api';
+import Notiflix from 'notiflix';
 
 const refs = {
   breedSelect: document.querySelector('.breed-select'),
   catInfo: document.querySelector('.cat-info'),
+  loaderHidden: document.querySelector('.loader-hidden'),
   loader: document.querySelector('.loader'),
-  error: document.querySelector('.error'),
 };
 
 let isFirstClick = true;
@@ -18,14 +19,19 @@ fetchBreeds()
     console.log(data);
 
     if (data) {
-      refs.loader.textContent = '';
-      refs.error.textContent = '';
+      refs.loaderHidden.hidden = true;
 
       createMarkup(data);
       refs.breedSelect.insertAdjacentHTML('beforeend', createMarkup(data));
     }
   })
-  .catch(err => console.log(err));
+  .catch(err => {
+    console.log(err);
+
+    Notiflix.Notify.failure(
+      'Oops! Something went wrong! Try reloading the page!'
+    );
+  });
 
 function createMarkup(data) {
   return data
@@ -45,13 +51,18 @@ function onSelectBreed(e) {
 
     fetchCatByBreed(breedId)
       .then(data => {
-        console.log(data);
+        if (data) {
+          const urlPicture = data[0].url;
+          const markup = `<img src="${urlPicture}" alt="cat""></img>`;
 
-        const urlPicture = data[0].url;
-        const markup = `<img src="${urlPicture}" alt="cat""></img>`;
-
-        refs.catInfo.innerHTML = markup;
+          refs.catInfo.innerHTML = markup;
+        }
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        console.log(err);
+        Notiflix.Notify.failure(
+          'Oops! Something went wrong! Try reloading the page!'
+        );
+      });
   }
 }
