@@ -59,7 +59,7 @@ function onSelectBreed(e) {
         setTimeout(() => {
           if (data) {
             console.log(data);
-            
+
             refs.loaderHidden.hidden = true;
 
             const urlPicture = data[0].url;
