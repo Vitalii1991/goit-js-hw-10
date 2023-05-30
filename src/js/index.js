@@ -18,12 +18,14 @@ fetchBreeds()
   .then(data => {
     console.log(data);
 
-    if (data) {
-      refs.loaderHidden.hidden = true;
+    setTimeout(() => {
+      if (data) {
+        refs.loaderHidden.hidden = true;
 
-      createMarkup(data);
-      refs.breedSelect.insertAdjacentHTML('beforeend', createMarkup(data));
-    }
+        createMarkup(data);
+        refs.breedSelect.insertAdjacentHTML('beforeend', createMarkup(data));
+      }
+    }, 2000);
   })
   .catch(err => {
     console.log(err);
@@ -47,16 +49,23 @@ function onClickBreedSelect() {
 
 function onSelectBreed(e) {
   if (!isFirstClick) {
+    refs.catInfo.innerHTML = '';
+    refs.loaderHidden.hidden = false;
+
     const breedId = e.target.value;
 
     fetchCatByBreed(breedId)
       .then(data => {
-        if (data) {
-          const urlPicture = data[0].url;
-          const markup = `<img src="${urlPicture}" alt="cat""></img>`;
+        setTimeout(() => {
+          if (data) {
+            refs.loaderHidden.hidden = true;
 
-          refs.catInfo.innerHTML = markup;
-        }
+            const urlPicture = data[0].url;
+            const markup = `<img src="${urlPicture}" alt="cat""></img>`;
+
+            refs.catInfo.innerHTML = markup;
+          }
+        }, 2000);
       })
       .catch(err => {
         console.log(err);
