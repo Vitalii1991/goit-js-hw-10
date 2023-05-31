@@ -37,8 +37,8 @@ fetchBreeds()
 
 function createMarkup(data) {
   return data
-    .map(({ id, name }) => {
-      return `<option value=${id}>${name}</option>`;
+    .map(({ reference_image_id, name }) => {
+      return `<option value=${reference_image_id}>${name}</option>`;
     })
     .join('');
 }
@@ -62,12 +62,23 @@ function onSelectBreed(e) {
 
             refs.loaderHidden.hidden = true;
 
-            const urlPicture = data[0].url;
-            const markup = `<img src="${urlPicture}" alt="cat""></img>`;
+            const pictureUrl = data.url;
+            const catName = data.breeds[0].name;
+            const catDescription = data.breeds[0].description;
+            const catTemperament = data.breeds[0].temperament;
+
+            console.log(catDescription);
+            console.log(catName);
+            console.log(catTemperament);
+
+            const markup = `<img src="${pictureUrl}" alt="cat""></img>
+            <div><h2>${catName}</h2>
+            <p>${catDescription}</p>
+            <p><span class="temperament">Temperament:</span>${catTemperament}</p></div>`;
 
             refs.catInfo.innerHTML = markup;
           }
-        }, 2000);
+        }, 1000);
       })
       .catch(err => {
         console.log(err);
