@@ -3,7 +3,9 @@ const API_KEY =
   'live_h4rXP6k712FItPzlv4CzVENgeHJjXm6PhC2qqHs9ALeUyqOD7G0DJszHUDH4miQN';
 
 export function fetchBreeds() {
-  return fetch(`${BASE_URL}/breeds`, {
+  const URL = `${BASE_URL}/breeds`;
+
+  return fetch(URL, {
     headers: { 'x-api-key': API_KEY },
   }).then(resp => {
     if (!resp.ok) {
@@ -15,7 +17,7 @@ export function fetchBreeds() {
 }
 
 export function fetchCatByBreed(breedId) {
-  const URL = `https://api.thecatapi.com/v1/images/${breedId}`;
+  const URL = `${BASE_URL}/images/${breedId}`;
 
   return fetch(URL).then(resp => {
     if (!resp.ok) {
